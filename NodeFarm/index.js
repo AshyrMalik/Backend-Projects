@@ -1,22 +1,47 @@
 fs = require("fs")
-//Blocking Synchronous Way 
-// textin=fs.readFileSync("./txt/input.txt","utf-8")
-// console.log(textin)
-// text_out= `This is what we know about: ${textin}`
-// fs.writeFileSync("./txt/output.txt",text_out)
-// console.log("output written to the file ")
+const http = require('http');
+url = require("url")
 
-//Non Blocking Async way 
-fs.readFile("./txt/start.txt", "utf-8", (err, data) => {
-  fs.readFile(`./txt/${data}.txt`, "utf-8", (err, data1) => {
-    console.log(data1);
-    fs.readFile("./txt/append.txt","utf-8",(err,data2)=>{
-        console.log(data2)
-        fs.writeFile("./txt/final.txt",`${data1}\n ${data2}`,"utf-8",err=>{
-            console.log("File Written")
-        });
-    });
-  });
+///////////////////////////////////////////////////////////////
+//File System
+
+// //Blocking Synchronous Way 
+// // textin=fs.readFileSync("./txt/input.txt","utf-8")
+// // console.log(textin)
+// // text_out= `This is what we know about: ${textin}`
+// // fs.writeFileSync("./txt/output.txt",text_out)
+// // console.log("output written to the file ")
+
+// //Non Blocking Async way 
+// fs.readFile("./txt/start.txt", "utf-8", (err, data) => {
+//   fs.readFile(`./txt/${data}.txt`, "utf-8", (err, data1) => {
+//     console.log(data1);
+//     fs.readFile("./txt/append.txt","utf-8",(err,data2)=>{
+//         console.log(data2)
+//         fs.writeFile("./txt/final.txt",`${data1}\n${data2}`,"utf-8",err=>{
+//             console.log("File Written")
+//         });
+//     });
+//   });
+// });
+// console.log("reading file")
+
+///////////////////////////////////////////////////////////////
+//Web Server
+
+const server = http.createServer((req, res) => {
+  const pathName = req.url;
+
+  if (pathName === '/' || pathName === '/overview') {
+    res.end("This is the OVERVIEW");
+  } else if (pathName === "/product") {
+    res.end("This is the product page");
+  } else {
+    res.end("Hello from the server");
+  }
 });
 
-console.log("reading file")
+server.listen(8000, () => {
+  console.log("Server is listening on port 8000");
+});
+
