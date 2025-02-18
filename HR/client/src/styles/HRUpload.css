@@ -1,0 +1,235 @@
+.hr-upload-wrapper {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f5ff 0%, #e6f0ff 100%);
+}
+
+.hr-upload-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 62, 255, 0.08);
+  padding: 2.5rem;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  background: linear-gradient(to bottom, #ffffff, #fafcff);
+}
+
+.hr-upload-title {
+  margin-bottom: 2.5rem;
+  text-align: center;
+  color: #1e3a8a;
+  font-size: 1.75rem;
+  font-weight: 600;
+  position: relative;
+}
+
+.hr-upload-title:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  border-radius: 2px;
+}
+
+.hr-upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hr-upload-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.hr-upload-label {
+  font-weight: 600;
+  color: #2c5282;
+  font-size: 1.1rem;
+}
+
+.hr-upload-files {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.hr-upload-file {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f8faff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #e1e9ff;
+  transition: all 0.2s ease;
+}
+
+.hr-upload-file:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+  transform: translateY(-1px);
+}
+
+.file-name {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #3d4f7c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-icon {
+  flex-shrink: 0;
+}
+
+.file-preview {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.hr-upload-delete {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.hr-upload-delete:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.hr-upload-dropzone {
+  position: relative;
+  border: 2px dashed #bfdbfe;
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #f8faff;
+}
+
+.hr-upload-dropzone:hover {
+  border-color: #60a5fa;
+  background: #f0f7ff;
+}
+
+.hr-upload-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.hr-upload-dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: #3b82f6;
+}
+
+.upload-hint {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.hr-upload-submit {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.hr-upload-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
+}
+
+.hr-upload-submit:disabled {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.hr-upload-message {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.hr-upload-message.success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.hr-upload-message.error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+@media (max-width: 640px) {
+  .hr-upload-wrapper {
+    padding: 1rem;
+  }
+  
+  .hr-upload-card {
+    padding: 1.5rem;
+  }
+  
+  .hr-upload-files {
+    grid-template-columns: 1fr;
+  }
+  
+  .hr-upload-title {
+    font-size: 1.5rem;
+  }
+  
+  .hr-upload-title:after {
+    width: 40px;
+  }
+}
+
+/* Add smooth scrolling to the page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure consistent box sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
