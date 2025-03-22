@@ -2,23 +2,22 @@ const express = require('express');
 const fs = require('fs');
 
 const app = express()
+
 app.use(express.json());
+app.use((req,res,next)=>{
+    console.log("Hello from the middleware");
+    next();
+})
+app.use((req,res,next)=>{
+    req.reqTime= new Date().toISOString();
+    next()
+})
 
-// app.get("/",(req,res)=>{
-//     res.status(200).json({message:'Hello from the server side ',app:'Natours'})
+tours=JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`))
 
-
-// })
-// app.post('/',(req,res)=>{
-//     res.send("You can post on this end point")
-    
-// })
-
-
- tours=JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`))
-
-app.get("/api/v1/tours",(req,res)=>{
+const getAllTours = (req,res)=>{
     res.status(200).json({
+        requestTime:req.reqTime,
         status:"success",
         results:tours.length,
         data:{
@@ -26,9 +25,8 @@ app.get("/api/v1/tours",(req,res)=>{
         }
 
     })
-})
-
-app.get ("/api/v1/tours/:id",(req,res)=>{
+}
+const getTour= (req,res)=>{
     console.log(req.params)
     const id = req.params.id *1;
     const tour = tours.find(el=>el.id === id)
@@ -44,8 +42,26 @@ app.get ("/api/v1/tours/:id",(req,res)=>{
         status:"success",
         tour
     })
-})
- app.post("/api/v1/tours",(req,res)=>{
+}
+
+const deleteTour = (req,res)=>{
+    
+    if (req.params.id * 1 > tours.length){
+        return res.status(404).json({
+            status:"failed",
+            message:"invalid id"
+        })
+    }
+
+    res.status(204).json({
+        status:"Success",
+        data: null 
+
+    })
+
+}
+
+const  addNewTour=(req,res)=>{
     //console.log(req.body)
     new_id = tours[tours.length-1].id +1
     const new_Tour= Object.assign({id:new_id},req.body)
@@ -59,7 +75,18 @@ app.get ("/api/v1/tours/:id",(req,res)=>{
         })
     })
     
- })
+ }
+// app.get("/api/v1/tours",getAllTours)
+
+// app.get ("/api/v1/tours/:id",getTour)
+
+// app.delete("/api/v1/tours/:id",deleteTour)
+
+// app.post("/api/v1/tours",addNewTour)
+
+
+app.route("/api/v1/tours").get(getAllTours).post(addNewTour)
+app.route("/api/v1/tours/:id").get(getTour).delete(deleteTour).post(addNewTour)
 
 const port = 3000;
 
