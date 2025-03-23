@@ -1,14 +1,17 @@
+// tourRoutes.js
 const express = require('express');
-const fs = require('fs');
-const {getAllTours,addNewTour,getTour,deleteTour,updateTour}=require("./../controllers/tourController")
+const { getAllTours, addNewTour, getTour, deleteTour, updateTour, checkId, checkBody } = require("./../controllers/tourController");
 
-tours=JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`))
+const tourRouter = express.Router();
 
+tourRouter.param('id', checkId);
+tourRouter.route("/")
+  .get(getAllTours)
+  .post(checkBody, addNewTour);
 
-const tourRouter = express.Router()
+tourRouter.route("/:id")
+  .get(getTour)
+  .delete(deleteTour)
+  .patch(updateTour);
 
-tourRouter.route("/").get(getAllTours).post(addNewTour)
-tourRouter.route("/:id").get(getTour).delete(deleteTour).patch(updateTour)
-
-
-module.exports = tourRouter
+module.exports = tourRouter;
