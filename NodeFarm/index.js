@@ -28,6 +28,13 @@ url = require("url")
 
 ///////////////////////////////////////////////////////////////
 //Web Server
+
+
+
+
+
+
+
 const replaceTemplate= (temp,product)=>{
   let output= temp.replace(/{%PRODUCTNAME%}/g,product.productName)
   output= output.replace(/{%IMAGE%}/g,product.image)
@@ -67,7 +74,7 @@ const server = http.createServer((req, res) => {
 
 
   } else if (pathname === "/product") {
-    res.writeHead(200,{"Content-type":"text/HTML"})
+    res.writeHead(200,{'Content-type':"text/HTML"})
     const product=productData[query.id]
     output = replaceTemplate(templateProduct,product)
     res.end(output);
